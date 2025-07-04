@@ -1,0 +1,42 @@
+---
+const { panels } = Astro.props;
+
+import Contents from "./panels/contents.astro";
+import Posts from "./panels/posts.astro";
+import Setting from "./panels/setting.astro";
+---
+
+{
+  panels.map((panel: any) => {
+    return (
+      <div class={`${panel.state} panel p-4`} id={panel.name}>
+        {() => {
+          switch (panel.type) {
+            case "posts":
+              return <Posts />;
+            case "contents":
+              return <Contents />;
+            case "setting":
+              return <Setting />;
+            default:
+              break;
+          }
+        }}
+      </div>
+    );
+  })
+}
+
+<style>
+  .panel {
+    top: 0;
+    height: 100dvh;
+    flex-grow: 1;
+    display: none;
+    overflow-y: scroll;
+    background-color: var(--color-gray-100);
+  }
+  .is-panel-active {
+    display: block;
+  }
+</style>

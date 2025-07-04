@@ -1,0 +1,26 @@
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+html {
+  font-size: 16px;
+  font-family:
+    -apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue",
+    arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
+  color: var(--color-base-black);
+  font-weight: normal;
+}
+
+img,
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+button,
+a {
+  cursor: pointer;
+}

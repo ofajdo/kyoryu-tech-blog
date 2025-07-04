@@ -1,0 +1,71 @@
+---
+import { Icon } from "astro-icon/components";
+const { panels } = Astro.props;
+---
+
+<div class="l-toolbar">
+  <ul class="flex column">
+    {
+      panels.map(({ name, icon, state, label }) => {
+        return (
+          <li>
+            <button
+              class={"p-4 panel-button " + state}
+              aria-label={label}
+              data-name={name}
+            >
+              <Icon name={icon} />
+            </button>
+          </li>
+        );
+      })
+    }
+  </ul>
+</div>
+
+<style>
+  li {
+    display: block;
+  }
+  .l-toolbar {
+    height: 100%;
+    width: 64px;
+    overflow-y: scroll;
+    background-color: var(--color-background);
+  }
+  button {
+    display: block;
+    height: auto;
+    width: 100%;
+    color: var(--color-gray-300);
+  }
+  .is-panel-active {
+    color: var(--color-text);
+    background-color: var(--color-gray-150);
+  }
+
+  button:hover {
+    background-color: var(--color-gray-100);
+  }
+
+  .is-panel-active:hover {
+    background-color: var(--color-gray-200);
+  }
+</style>
+<script>
+  const buttons = document.querySelectorAll("button.panel-button");
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const active_button = document.querySelector("button.is-panel-active");
+      button.classList.toggle("is-panel-active");
+      active_button?.classList.toggle("is-panel-active");
+      document
+        .getElementById(active_button?.dataset?.name)
+        ?.classList.toggle("is-panel-active");
+      document
+        .getElementById(button?.dataset?.name)
+        ?.classList.toggle("is-panel-active");
+    });
+  });
+</script>

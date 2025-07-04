@@ -5,6 +5,7 @@ dist/
 
 # dependencies
 node_modules/
+package-lock.json
 
 # logs
 npm-debug.log*
@@ -24,8 +25,11 @@ pnpm-debug.log*
 .idea/
 
 # vscode
-.vscode
+.vscode/
+
+# prettier
+.prettierrc
+.prettierignore
 
 # frontmatter
 frontmatter.json
-.frontmatter

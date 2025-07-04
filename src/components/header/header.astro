@@ -1,0 +1,82 @@
+---
+import Panel from "./panel.astro";
+import Toolbar from "./toolbar.astro";
+import { Icon } from "astro-icon/components";
+const panels = [
+  {
+    name: "contents",
+    icon: "mdi:table-of-contents",
+    state: "is-panel-active",
+    label: "目次のパネル",
+    type: "contents",
+  },
+  {
+    name: "pages",
+    icon: "gridicons:pages",
+    state: "",
+    label: "いろいろな記事のパネル",
+    type: "posts",
+  },
+  {
+    name: "setting",
+    icon: "mdi:settings-outline",
+    state: "",
+    label: "サイトの設定",
+    type: "setting",
+  },
+];
+---
+
+<div class="header-wrapper">
+  <header class="hide-mobile" id="header">
+    <Toolbar panels={panels} />
+    <Panel panels={panels} />
+  </header>
+  <button class="menu-toggle-button hide-desktop p-4" id="menu_button">
+    <Icon name="material-symbols:arrow-menu-open" /></button
+  >
+</div>
+
+<style>
+  header {
+    height: 100%;
+    display: flex;
+    width: 320px;
+  }
+  .header-wrapper {
+    display: flex;
+    justify-content: end;
+    flex-direction: column;
+  }
+
+  @media (max-width: 768px) {
+    header {
+      height: calc(100% - 64px);
+      display: flex;
+      width: 320px;
+    }
+  }
+
+  .menu-toggle-button {
+    width: 64px;
+    background-color: var(--color-primary);
+    transform: rotate(180deg);
+  }
+  .is-header {
+    transform: rotate(0deg);
+  }
+
+  .menu-toggle-button:hover {
+    background-color: var(--color-primary-hover);
+  }
+</style>
+
+<script>
+  const button = document.getElementById("menu_button");
+  const header = document.getElementById("header");
+
+  button?.addEventListener("click", () => {
+    header?.classList.toggle("hide-mobile");
+    button.classList.toggle("is-header");
+  });
+</script>
