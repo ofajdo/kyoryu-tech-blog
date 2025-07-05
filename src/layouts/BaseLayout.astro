@@ -1,0 +1,37 @@
+---
+import Header from "../components/header/header.astro";
+import "../styles/var.css";
+import "../styles/reset.css";
+import "../styles/base.css";
+import "../styles/style.css";
+import "../styles/status.css";
+const { title } = Astro.props;
+---
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+  </head>
+  <body>
+    <div class="screen">
+      <Header />
+      <main>
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>
+
+<style>
+  .screen {
+    display: flex;
+    height: 100dvh;
+  }
+  main {
+    background-color: var(--color-gray-50);
+    flex-grow: 1;
+    overflow-y: scroll;
+  }
+</style>

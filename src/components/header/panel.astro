@@ -35,8 +35,24 @@ import Setting from "./panels/setting.astro";
     display: none;
     overflow-y: scroll;
     background-color: var(--color-gray-100);
+    width: 320px;
+    z-index: 100;
   }
-  .is-panel-active {
-    display: block;
+  @media (min-width: 769px) {
+    .is-panel-active {
+      display: block;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .panel {
+      position: fixed;
+      left: 64px;
+      width: calc(100% - 64px);
+    }
+
+    .is-panel-active {
+      display: block;
+    }
   }
 </style>

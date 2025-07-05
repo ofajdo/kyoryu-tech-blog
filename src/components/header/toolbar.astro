@@ -6,19 +6,31 @@ const { panels } = Astro.props;
 <div class="l-toolbar">
   <ul class="flex column">
     {
-      panels.map(({ name, icon, state, label }) => {
-        return (
-          <li>
-            <button
-              class={"p-4 panel-button " + state}
-              aria-label={label}
-              data-name={name}
-            >
-              <Icon name={icon} />
-            </button>
-          </li>
-        );
-      })
+      panels.map(
+        ({
+          name,
+          icon,
+          state,
+          label,
+        }: {
+          name: string;
+          icon: string;
+          state: string;
+          label: string;
+        }) => {
+          return (
+            <li>
+              <button
+                class={"p-4 panel-button " + state}
+                aria-label={label}
+                data-name={name}
+              >
+                <Icon name={icon} />
+              </button>
+            </li>
+          );
+        },
+      )
     }
   </ul>
 </div>
@@ -58,14 +70,47 @@ const { panels } = Astro.props;
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
       const active_button = document.querySelector("button.is-panel-active");
+
+      const active_button_name = (active_button as HTMLElement | null)?.dataset
+        ?.name;
+      const button_name = (button as HTMLElement).dataset?.name;
+
+      if (active_button_name === button_name && active_button_name) {
+        document
+          .getElementById(active_button_name)
+          ?.classList.toggle("is-panel-active");
+
+        button.classList.toggle("is-panel-active");
+      }
+
       button.classList.toggle("is-panel-active");
       active_button?.classList.toggle("is-panel-active");
-      document
-        .getElementById(active_button?.dataset?.name)
-        ?.classList.toggle("is-panel-active");
-      document
-        .getElementById(button?.dataset?.name)
-        ?.classList.toggle("is-panel-active");
+
+      if (active_button_name) {
+        document
+          .getElementById(active_button_name)
+          ?.classList.toggle("is-panel-active");
+      }
+      if (button_name) {
+        document
+          .getElementById(button_name)
+          ?.classList.toggle("is-panel-active");
+      }
     });
   });
+
+  if (window.matchMedia && window.matchMedia("(max-width: 768px)").matches) {
+    const active_button = document.querySelector("button.is-panel-active");
+
+    const active_button_name = (active_button as HTMLElement | null)?.dataset
+      ?.name;
+
+    active_button?.classList.toggle("is-panel-active");
+
+    if (active_button_name) {
+      document
+        .getElementById(active_button_name)
+        ?.classList.toggle("is-panel-active");
+    }
+  }
 </script>

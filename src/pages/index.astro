@@ -1,34 +1,8 @@
 ---
-import { getCollection } from "astro:content";
-import BaseHead from "../components/base_head.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/header/header.astro";
-
-const posts = (await getCollection("blog")).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
 ---
 
-<html lang="ja">
-  <head>
-    <BaseHead />
-    <title>Astro</title>
-  </head>
-  <body>
-    <div class="screen">
-      <Header />
-      <main></main>
-    </div>
-  </body>
-</html>
-
-<style>
-  .screen {
-    display: flex;
-    height: 100dvh;
-  }
-  main {
-    background-color: var(--color-gray-50);
-    flex-grow: 1;
-    overflow-y: scroll;
-  }
-</style>
+<BaseLayout title="ホーム">
+  <h1>Hello World</h1>
+</BaseLayout>

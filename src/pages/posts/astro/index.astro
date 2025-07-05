@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+type Post = {
+  frontmatter: {
+    title: string;
+  };
+  url: string;
+};
+
+type Posts = Post[];
+const all_posts: Posts = Object.values(
+  import.meta.glob("./*.md", { eager: true }),
+);
+
+console.log(all_posts[0].frontmatter);
+
+const pageTitle = "私のAstro学習ブログ";
+---
+
+<BaseLayout title="Astro関連のブログ">
+  <ul>
+    {
+      all_posts.map((post) => (
+        <li>
+          <a href={post?.url}>{post?.frontmatter?.title}</a>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>
