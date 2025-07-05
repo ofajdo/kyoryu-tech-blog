@@ -35,3 +35,15 @@ const { title } = Astro.props;
     overflow-y: scroll;
   }
 </style>
+
+<script>
+  document.addEventListener("load", () => {
+    document.addEventListener(
+      "dblclick",
+      function (e) {
+        e.preventDefault();
+      },
+      { passive: false },
+    );
+  });
+</script>
