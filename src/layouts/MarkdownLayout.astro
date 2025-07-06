@@ -9,20 +9,15 @@ const Date_Conversion = (date: string) => {
     day: "2-digit",
   });
 };
-const data = Astro.props;
-console.log(data);
+const { title, pubDate, updDate, panels } = Astro.props;
 ---
 
-<BaseLayout>
+<BaseLayout panels={panels}>
   <article>
     <div>
-      <h1>{data.content.title}</h1>
-      <time> {Date_Conversion(data.content.pubDate)}</time>
-      {
-        data.content.updDate && (
-          <time> {Date_Conversion(data.content.updDate)}</time>
-        )
-      }
+      <h1>{title}</h1>
+      <time> {Date_Conversion(pubDate)}</time>
+      {updDate && <time> {Date_Conversion(updDate)}</time>}
     </div>
     <div>
       <slot />

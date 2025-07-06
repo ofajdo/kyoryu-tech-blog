@@ -13,11 +13,11 @@ import Setting from "./panels/setting.astro";
         {() => {
           switch (panel.type) {
             case "posts":
-              return <Posts />;
+              return <Posts {panel} />;
             case "contents":
-              return <Contents />;
+              return <Contents {panel} />;
             case "setting":
-              return <Setting />;
+              return <Setting {panel} />;
             default:
               break;
           }
@@ -33,10 +33,10 @@ import Setting from "./panels/setting.astro";
     height: 100dvh;
     flex-grow: 1;
     display: none;
-    overflow-y: scroll;
     background-color: var(--color-gray-100);
     width: 320px;
     z-index: 100;
+    overflow-y: scroll;
   }
   @media (min-width: 769px) {
     .is-panel-active {

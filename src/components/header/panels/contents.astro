@@ -1,1 +1,28 @@
-<h1>あああ</h1>
+---
+const { panel } = Astro.props;
+const headings = panel.data.headings;
+---
+
+<h1>目次</h1>
+
+<ul>
+  {
+    headings.map(
+      ({
+        depth,
+        slug,
+        text,
+      }: {
+        depth: number;
+        slug: string;
+        text: string;
+      }) => {
+        return (
+          <li class={"depth-" + depth}>
+            <a href={"#" + slug}>{text}</a>
+          </li>
+        );
+      },
+    )
+  }
+</ul>

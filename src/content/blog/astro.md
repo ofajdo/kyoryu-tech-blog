@@ -1,22 +1,14 @@
 ---
-layout: ../../../layouts/MarkdownLayout.astro
-title: AI時代だからこそ中小企業のDXに「ITを使うプロ｣の力を
-description: "この記事単独で表示されます！"
+title: 初めてのAstroブログ
+description: 初めてのAstroブログを作ったよという記事です。
+pubDate: 2025-07-05
 image:
-  url: "https://static.spearly.com/teams/01JVGZ262KV71GDMF74JS16BEE/fields/f5f785ad-264b-432c-8fb8-468cc9408d24.svg"
-  alt: "AI時代だからこそ中小企業のDXに「ITを使うプロ｣の力を"
-pubDate: 2022-08-08
-updDate: 2025-07-05
-tags: ["astro", "成功"]
+  url: "https://docs.astro.build/default-og-image.png"
+  alt: "惑星と星のイラストの中に「astro」という単語があります。"
+category:
+  name: Astro
+  slug: astro
 ---
-
-```js
-// JavaScriptコードの例
-var fun = function lang(l) {
-  dateformat.i18n = require("./lang/" + l);
-  return true;
-};
-```
 
 生成AI技術の進化によりITの進化は今までとは比較にならないペースで加速しています。ITを使いこなすことが出来るか出来ないかが中小企業の将来を左右します。ITを「作る人」でも「売る人」でもなく「使う人」に寄り添ったDXを有限会社トライワは実現します。
 

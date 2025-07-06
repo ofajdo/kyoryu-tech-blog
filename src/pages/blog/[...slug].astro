@@ -1,0 +1,49 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+
+import { render } from "astro:content";
+import MarkdownLayout from "../../layouts/MarkdownLayout.astro";
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((post: any) => ({
+    params: { slug: post.id },
+    props: post,
+  }));
+}
+type Props = CollectionEntry<"blog">;
+
+const post = Astro.props;
+const { Content } = await render(post);
+---
+
+<MarkdownLayout
+  {...post.data}
+  panels={[
+    {
+      name: "contents",
+      icon: "mdi:table-of-contents",
+      state: "is-panel-active",
+      label: "目次のパネル",
+      type: "contents",
+      data: {
+        headings: post.rendered?.metadata?.headings,
+      },
+    },
+    {
+      name: "pages",
+      icon: "gridicons:pages",
+      state: "",
+      label: "いろいろな記事のパネル",
+      type: "posts",
+    },
+    {
+      name: "setting",
+      icon: "mdi:settings-outline",
+      state: "",
+      label: "サイトの設定",
+      type: "setting",
+    },
+  ]}
+>
+  <Content />
+</MarkdownLayout>

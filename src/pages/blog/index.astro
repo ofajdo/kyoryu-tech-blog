@@ -1,9 +1,14 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import ArticleListLayout from "../../layouts/ArticleListLayout.astro";
+
+const posts = (await getCollection("blog")).sort((a: any, b: any) => {
+  return b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
+});
 ---
 
-<BaseLayout
-  title="ホーム"
+<ArticleListLayout
+  posts={posts}
   panels={[
     {
       name: "contents",
@@ -27,6 +32,4 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       type: "setting",
     },
   ]}
->
-  <h1>Hello World</h1>
-</BaseLayout>
+/>
