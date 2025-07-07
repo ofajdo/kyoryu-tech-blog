@@ -5,7 +5,7 @@ const headings = panel?.data?.headings;
 
 <h1>目次</h1>
 
-<ul>
+<ul class="py-2">
   {
     headings &&
       headings.map(
@@ -20,7 +20,7 @@ const headings = panel?.data?.headings;
         }) => {
           return (
             <li class={"depth-" + depth}>
-              <a href={"#" + slug} data-toc-link={slug}>
+              <a href={"#" + slug} data-toc-link={slug} class="py-1 px-2">
                 {text}
               </a>
             </li>
@@ -29,11 +29,45 @@ const headings = panel?.data?.headings;
       )
   }
 </ul>
+
+<style>
+  a {
+    width: 100%;
+    display: inline-block;
+    border-radius: var(--border-radius-3);
+  }
+  a:hover {
+    background-color: var(--color-gray-200);
+  }
+
+  .depth-2 {
+    padding-left: var(--spacing-1);
+  }
+  .depth-3 {
+    padding-left: var(--spacing-3);
+  }
+  .depth-4 {
+    padding-left: var(--spacing-5);
+    font-size: 0.875rem;
+  }
+  .depth-5,
+  .depth-6 {
+    padding-left: var(--spacing-6);
+    font-size: 0.75rem;
+  }
+  .is-active-toc {
+    background-color: var(--color-accent);
+  }
+  .is-active-toc:hover {
+    background-color: var(--color-accent-hover);
+  }
+</style>
+
 <script>
   function initTOCHighlight() {
     const tocLinks = document.querySelectorAll("[data-toc-link]");
     const headings = document.querySelectorAll(
-      "h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]",
+      "h1[id], h2[id], h3[id], h4[id], h5[id]",
     );
 
     // TOCリンクと見出しがなければ終了
@@ -78,7 +112,11 @@ const headings = panel?.data?.headings;
           }
         });
       },
-      { rootMargin: "15% 0px -95% 0px", threshold: 0 },
+      {
+        root: null, // 画面全体を基準に
+        rootMargin: "0px 0px -98% 0px",
+        threshold: 0, // 50%以上見えたら
+      },
     );
 
     // 各見出しを監視
@@ -112,9 +150,3 @@ const headings = panel?.data?.headings;
   // Astro対応のページ遷移後にも初期化
   document.addEventListener("astro:page-load", initTOCHighlight);
 </script>
-
-<style>
-  .is-active-toc {
-    background-color: var(--color-accent);
-  }
-</style>
