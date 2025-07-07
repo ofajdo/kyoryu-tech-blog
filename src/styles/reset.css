@@ -4,6 +4,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scroll-padding: 0;
+  scroll-margin: 0;
 }
 :where([hidden]:not([hidden="until-found"])) {
   display: none !important;
@@ -95,9 +97,6 @@
   outline: 3px solid CanvasText;
   box-shadow: 0 0 0 5px Canvas;
   outline-offset: 1px;
-}
-:where(:focus-visible, :target) {
-  scroll-margin-block: 8vh;
 }
 :where(.visually-hidden:not(:focus-within, :active)) {
   clip-path: inset(50%) !important;

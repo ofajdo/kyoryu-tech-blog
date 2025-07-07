@@ -5,6 +5,7 @@ type Post = {
     title: string;
   };
   id: string;
+  collection: string;
 };
 const Date_Conversion = (date: string) => {
   return new Date(date).toLocaleDateString("ja-JP", {
@@ -15,6 +16,7 @@ const Date_Conversion = (date: string) => {
 };
 
 const { posts, panels } = Astro.props;
+console.log(posts[0].rendered?.metadata);
 ---
 
 <BaseLayout panels={panels}>
@@ -22,7 +24,9 @@ const { posts, panels } = Astro.props;
     {
       posts.map((post: Post) => (
         <li>
-          <a href={post?.id}>{post?.data?.title}</a>
+          <a href={"/" + post?.collection + "/" + post?.id}>
+            {post?.data?.title}
+          </a>
         </li>
       ))
     }

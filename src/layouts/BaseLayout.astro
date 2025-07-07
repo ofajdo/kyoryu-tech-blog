@@ -31,8 +31,10 @@ const { title, panels } = Astro.props;
     height: 100dvh;
   }
   main {
+    scroll-behavior: smooth;
+    scroll-padding-top: 2%;
     background-color: var(--color-gray-50);
     flex-grow: 1;
-    overflow-y: scroll;
+    overflow: scroll;
   }
 </style>

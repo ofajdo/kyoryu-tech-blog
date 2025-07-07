@@ -1,28 +1,120 @@
 ---
 const { panel } = Astro.props;
-const headings = panel.data.headings;
+const headings = panel?.data?.headings;
 ---
 
 <h1>目次</h1>
 
 <ul>
   {
-    headings.map(
-      ({
-        depth,
-        slug,
-        text,
-      }: {
-        depth: number;
-        slug: string;
-        text: string;
-      }) => {
-        return (
-          <li class={"depth-" + depth}>
-            <a href={"#" + slug}>{text}</a>
-          </li>
-        );
-      },
-    )
+    headings &&
+      headings.map(
+        ({
+          depth,
+          slug,
+          text,
+        }: {
+          depth: number;
+          slug: string;
+          text: string;
+        }) => {
+          return (
+            <li class={"depth-" + depth}>
+              <a href={"#" + slug} data-toc-link={slug}>
+                {text}
+              </a>
+            </li>
+          );
+        },
+      )
   }
 </ul>
+<script>
+  function initTOCHighlight() {
+    const tocLinks = document.querySelectorAll("[data-toc-link]");
+    const headings = document.querySelectorAll(
+      "h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]",
+    );
+
+    // TOCリンクと見出しがなければ終了
+    if (!tocLinks.length || !headings.length) return;
+
+    let currentId = "";
+
+    // 指定IDのリンクをハイライトする関数
+    function highlightTOC(id: string) {
+      if (id === currentId) return;
+      currentId = id;
+
+      // 全てのリンクのハイライトを削除
+      tocLinks.forEach((link) => {
+        link.classList.remove("is-active-toc");
+      });
+
+      // 対象IDのリンクだけにハイライトを追加
+      const activeLink = document.querySelector(`[data-toc-link="${id}"]`);
+      if (activeLink) {
+        activeLink.classList.add("is-active-toc");
+      }
+    }
+
+    // ページ読み込み時にハッシュリンクがあればハイライト
+    function highlightFromHash() {
+      const hashId = window.location.hash.slice(1);
+      if (hashId) {
+        setTimeout(() => {
+          const element = document.getElementById(hashId);
+          if (element) highlightTOC(hashId);
+        }, 100);
+      }
+    }
+
+    // 見出しが画面に表示されたらハイライト
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            highlightTOC(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "15% 0px -95% 0px", threshold: 0 },
+    );
+
+    // 各見出しを監視
+    headings.forEach((heading) => observer.observe(heading));
+
+    // ハッシュが変化したときにハイライト
+    window.addEventListener("hashchange", () => {
+      const id = window.location.hash.slice(1);
+      if (id) highlightTOC(id);
+    });
+
+    // TOCリンクがクリックされたときの処理
+    tocLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        const id = link.getAttribute("data-toc-link");
+        if (id) highlightTOC(id);
+      });
+    });
+
+    // 初期ハイライト処理
+    highlightFromHash();
+  }
+
+  // DOMが読み込まれた後に初期化
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initTOCHighlight);
+  } else {
+    initTOCHighlight();
+  }
+
+  // Astro対応のページ遷移後にも初期化
+  document.addEventListener("astro:page-load", initTOCHighlight);
+</script>
+
+<style>
+  .is-active-toc {
+    background-color: var(--color-accent);
+  }
+</style>
