@@ -19,7 +19,7 @@ const headings = panel?.data?.headings;
           text: string;
         }) => {
           return (
-            <li class={"depth-" + depth}>
+            <li class={"py-1 depth-" + depth}>
               <a href={"#" + slug} data-toc-link={slug} class="py-1 px-2">
                 {text}
               </a>
@@ -31,15 +31,6 @@ const headings = panel?.data?.headings;
 </ul>
 
 <style>
-  a {
-    width: 100%;
-    display: inline-block;
-    border-radius: var(--border-radius-3);
-  }
-  a:hover {
-    background-color: var(--color-gray-200);
-  }
-
   .depth-2 {
     padding-left: var(--spacing-1);
   }
@@ -48,105 +39,84 @@ const headings = panel?.data?.headings;
   }
   .depth-4 {
     padding-left: var(--spacing-5);
-    font-size: 0.875rem;
   }
   .depth-5,
   .depth-6 {
     padding-left: var(--spacing-6);
-    font-size: 0.75rem;
+  }
+
+  a {
+    width: 100%;
+    display: inline-block;
+    border-radius: var(--border-radius-1);
+  }
+
+  a:hover {
+    background-color: var(--color-gray-150);
   }
   .is-active-toc {
-    background-color: var(--color-accent);
+    background-color: var(--color-gray-150);
   }
   .is-active-toc:hover {
-    background-color: var(--color-accent-hover);
+    background-color: var(--color-gray-200);
   }
 </style>
 
 <script>
-  function initTOCHighlight() {
+  document.addEventListener("DOMContentLoaded", () => {
     const tocLinks = document.querySelectorAll("[data-toc-link]");
     const headings = document.querySelectorAll(
-      "h1[id], h2[id], h3[id], h4[id], h5[id]",
+      "h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]",
     );
 
-    // TOCリンクと見出しがなければ終了
-    if (!tocLinks.length || !headings.length) return;
-
-    let currentId = "";
-
-    // 指定IDのリンクをハイライトする関数
-    function highlightTOC(id: string) {
-      if (id === currentId) return;
-      currentId = id;
-
-      // 全てのリンクのハイライトを削除
-      tocLinks.forEach((link) => {
-        link.classList.remove("is-active-toc");
-      });
-
-      // 対象IDのリンクだけにハイライトを追加
-      const activeLink = document.querySelector(`[data-toc-link="${id}"]`);
-      if (activeLink) {
-        activeLink.classList.add("is-active-toc");
-      }
-    }
-
-    // ページ読み込み時にハッシュリンクがあればハイライト
-    function highlightFromHash() {
-      const hashId = window.location.hash.slice(1);
-      if (hashId) {
-        setTimeout(() => {
-          const element = document.getElementById(hashId);
-          if (element) highlightTOC(hashId);
-        }, 100);
-      }
-    }
-
-    // 見出しが画面に表示されたらハイライト
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          const id = entry.target.id;
+          const tocLink = document.querySelector(
+            `[data-toc-link][href="#${id}"]`,
+          );
+
           if (entry.isIntersecting) {
-            highlightTOC(entry.target.id);
+            // すべてのリンクから active を外す
+            tocLinks.forEach((link) => link.classList.remove("is-active-toc"));
+            // 対象のリンクに active を追加
+            if (tocLink) tocLink.classList.add("is-active-toc");
           }
         });
       },
       {
-        root: null, // 画面全体を基準に
-        rootMargin: "-10% 0px -70% 0px",
-        threshold: 0, // 50%以上見えたら
+        rootMargin: "0px 0px -90% 0px", // 上部から10%の位置で発火（調整可）
+        threshold: 0.1,
       },
     );
 
-    // 各見出しを監視
     headings.forEach((heading) => observer.observe(heading));
 
-    // ハッシュが変化したときにハイライト
-    window.addEventListener("hashchange", () => {
-      const id = window.location.hash.slice(1);
-      if (id) highlightTOC(id);
-    });
-
-    // TOCリンクがクリックされたときの処理
     tocLinks.forEach((link) => {
       link.addEventListener("click", () => {
-        const id = link.getAttribute("data-toc-link");
-        if (id) highlightTOC(id);
+        setTimeout(() => {
+          if (
+            window.matchMedia &&
+            window.matchMedia("(max-width: 768px)").matches
+          ) {
+            const active_button = document.querySelector(
+              "button.is-panel-active",
+            );
+
+            const active_button_name = (active_button as HTMLElement | null)
+              ?.dataset?.name;
+
+            active_button?.classList.toggle("is-panel-active");
+
+            if (active_button_name) {
+              document
+                .getElementById(active_button_name)
+                ?.classList.toggle("is-panel-active");
+            }
+          }
+        }, 100);
       });
     });
-
-    // 初期ハイライト処理
-    highlightFromHash();
-  }
-
-  // DOMが読み込まれた後に初期化
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initTOCHighlight);
-  } else {
-    initTOCHighlight();
-  }
-
-  // Astro対応のページ遷移後にも初期化
-  document.addEventListener("astro:page-load", initTOCHighlight);
+  });
 </script>

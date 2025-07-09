@@ -4,8 +4,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  scroll-padding: 0;
-  scroll-margin: 0;
 }
 :where([hidden]:not([hidden="until-found"])) {
   display: none !important;

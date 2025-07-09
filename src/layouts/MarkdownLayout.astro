@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import Image from "astro/components/Image.astro";
+import "../styles/article.css";
 
 const Date_Conversion = (date: string) => {
   return new Date(date).toLocaleDateString("ja-JP", {
@@ -9,18 +10,36 @@ const Date_Conversion = (date: string) => {
     day: "2-digit",
   });
 };
-const { title, pubDate, updDate, panels } = Astro.props;
+
+const { title, pubDate, updDate, image, panels } = Astro.props;
+const { url, alt } = image;
 ---
 
 <BaseLayout panels={panels}>
   <article>
     <div>
-      <h1>{title}</h1>
-      <time> {Date_Conversion(pubDate)}</time>
-      {updDate && <time> {Date_Conversion(updDate)}</time>}
+      <Image src={url} alt={alt} inferSize={true} />
+      <div class="py-16">
+        <h1>{title}</h1>
+        <time> {Date_Conversion(pubDate)}</time>
+        {updDate && <time> {Date_Conversion(updDate)}</time>}
+      </div>
     </div>
-    <div>
+    <div class="px-4 article-body">
       <slot />
     </div>
   </article>
 </BaseLayout>
+
+<style>
+  .article-body {
+    max-width: 1024px;
+    background-color: var(--color-background);
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: 2rem;
+    text-align: center;
+  }
+</style>
