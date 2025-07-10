@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
 import "../styles/article.css";
 
 const Date_Conversion = (date: string) => {
@@ -11,35 +12,109 @@ const Date_Conversion = (date: string) => {
   });
 };
 
-const { title, pubDate, updDate, image, panels } = Astro.props;
+const { title, pubDate, updDate, image, panels, tag, category, collection } =
+  Astro.props;
 const { url, alt } = image;
 ---
 
 <BaseLayout panels={panels}>
   <article>
-    <div>
+    <div class="article-head">
       <Image src={url} alt={alt} inferSize={true} />
-      <div class="py-16">
-        <h1>{title}</h1>
-        <time> {Date_Conversion(pubDate)}</time>
-        {updDate && <time> {Date_Conversion(updDate)}</time>}
+      <div class="flex-center column p-2 gap-8">
+        <h1 class="py-8">{title}</h1>
+        <ul class="flex-center wrap gap-4">
+          <li>
+            <p class="icon-text">
+              <Icon name="mdi:clock-time-four-outline" />
+              <time> {Date_Conversion(pubDate)}</time>
+            </p>
+          </li>
+          {
+            updDate && (
+              <li>
+                <p class="icon-text">
+                  <Icon name="mdi:update" />
+                  <time> {Date_Conversion(updDate)}</time>
+                </p>
+              </li>
+            )
+          }
+          <li>
+            <a href={"/" + collection + "/" + category?.slug} class="icon-text"
+              ><Icon name="mdi:folder-outline" />{category.name}</a
+            >
+          </li>
+        </ul>
+        <div class="flex-center column gap-2">
+          <h2>タグ</h2>
+          <ul class="flex-center wrap gap-4">
+            {
+              tag.map(({ name, slug }: { name: string; slug: string }) => {
+                return (
+                  <li>
+                    <a class="icon-text">
+                      <Icon name="mdi:hashtag-box-outline" />
+                      {name}
+                    </a>
+                  </li>
+                );
+              })
+            }
+          </ul>
+        </div>
       </div>
     </div>
-    <div class="px-4 article-body">
+    <div class="py-8 px-4 article-body">
       <slot />
     </div>
   </article>
 </BaseLayout>
 
 <style>
+  article {
+    max-width: 1440px;
+    margin: 0 auto;
+    background-color: var(--color-background);
+  }
+  .article-head {
+    background-color: var(--color-gray-50);
+  }
+
   .article-body {
     max-width: 1024px;
-    background-color: var(--color-background);
     margin: 0 auto;
   }
 
   h1 {
     font-size: 2rem;
     text-align: center;
+  }
+
+  svg {
+    display: inline;
+  }
+
+  li > p,
+  li > a {
+    padding: var(--spacing-2) var(--spacing-3);
+    border-radius: var(--border-radius-3);
+    border: solid var(--color-gray-200) 2px;
+    line-height: 1.5;
+  }
+
+  .icon-text {
+    display: inline-flex;
+    align-items: center;
+  }
+  .icon-text svg {
+    width: 1.5em;
+    height: 1.5em;
+    margin: 0 var(--spacing-1);
+  }
+
+  li a:hover {
+    border-color: var(--color-primary-hover);
+    color: var(--color-secondary-hover);
   }
 </style>

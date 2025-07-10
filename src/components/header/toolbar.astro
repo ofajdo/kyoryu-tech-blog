@@ -21,7 +21,7 @@ const { panels } = Astro.props;
           return (
             <li>
               <button
-                class={"p-4 panel-button " + state}
+                class={"panel-button " + state}
                 aria-label={label}
                 data-name={name}
               >
@@ -50,10 +50,11 @@ const { panels } = Astro.props;
     height: auto;
     width: 100%;
     color: var(--color-gray-500);
+    padding: var(--spacing-4);
   }
   .is-panel-active {
     color: var(--color-text);
-    background-color: var(--color-gray-200);
+    background-color: var(--color-gray-150);
   }
 
   button:hover {
@@ -61,7 +62,16 @@ const { panels } = Astro.props;
   }
 
   .is-panel-active:hover {
-    background-color: var(--color-gray-250);
+    background-color: var(--color-gray-200);
+  }
+
+  @media (max-width: 768px) {
+    .l-toolbar {
+      width: 48px;
+    }
+    button {
+      padding: var(--spacing-2);
+    }
   }
 </style>
 <script>

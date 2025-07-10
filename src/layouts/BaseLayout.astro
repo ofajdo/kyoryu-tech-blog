@@ -1,7 +1,6 @@
 ---
 import Header from "../components/header/header.astro";
 
-import { ClientRouter } from "astro:transitions";
 import "../styles/var.css";
 import "../styles/reset.css";
 import "../styles/base.css";
@@ -16,7 +15,6 @@ const { title, panels } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <title>{title}</title>
-    <ClientRouter />
   </head>
   <body>
     <div class="screen">
@@ -36,8 +34,9 @@ const { title, panels } = Astro.props;
   main {
     scroll-behavior: smooth;
     scroll-padding-top: 7%;
-    background-color: var(--color-background);
     flex-grow: 1;
     overflow: scroll;
+    background-color: var(--color-gray-100);
+    border-left: solid 2px var(--color-gray-200);
   }
 </style>

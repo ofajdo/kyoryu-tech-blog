@@ -3,6 +3,9 @@ import BaseLayout from "./BaseLayout.astro";
 type Post = {
   data: {
     title: string;
+    category: {
+      slug: string;
+    };
   };
   id: string;
   collection: string;
@@ -16,7 +19,6 @@ const Date_Conversion = (date: string) => {
 };
 
 const { posts, panels } = Astro.props;
-console.log(posts[0].rendered?.metadata);
 ---
 
 <BaseLayout panels={panels}>
@@ -24,7 +26,16 @@ console.log(posts[0].rendered?.metadata);
     {
       posts.map((post: Post) => (
         <li>
-          <a href={"/" + post?.collection + "/" + post?.id}>
+          <a
+            href={
+              "/" +
+              post?.collection +
+              "/" +
+              post?.data?.category?.slug +
+              "/" +
+              post?.id
+            }
+          >
             {post?.data?.title}
           </a>
         </li>
