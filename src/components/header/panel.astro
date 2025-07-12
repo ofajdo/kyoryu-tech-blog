@@ -38,7 +38,19 @@ import Setting from "./panels/setting.astro";
     z-index: 100;
     overflow-y: scroll;
   }
-  @media (min-width: 500px) {
+  @media (min-width: 769px) {
+    .is-panel-active {
+      display: block;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .panel {
+      position: fixed;
+      left: 56px;
+      width: calc(100% - 56px);
+    }
+
     .is-panel-active {
       display: block;
     }
@@ -46,13 +58,8 @@ import Setting from "./panels/setting.astro";
 
   @media (max-width: 499px) {
     .panel {
-      position: fixed;
       left: 48px;
       width: calc(100% - 48px);
-    }
-
-    .is-panel-active {
-      display: block;
     }
   }
 </style>
