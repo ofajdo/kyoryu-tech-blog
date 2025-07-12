@@ -74,5 +74,12 @@
   padding: var(--spacing-1);
 }
 
+.article-body a {
+  color: var(--color-primary);
+}
+
+.article-body a:hover {
+  color: var(--color-primary-hover);
+}
 @media (max-width: 768px) {
 }

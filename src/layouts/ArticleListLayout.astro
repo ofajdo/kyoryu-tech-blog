@@ -1,11 +1,21 @@
 ---
+import { Icon } from "astro-icon/components";
 import BaseLayout from "./BaseLayout.astro";
 type Post = {
   data: {
     title: string;
+    pubDate: string;
+    updDate: string;
     category: {
+      name: string;
       slug: string;
     };
+    tags: [
+      {
+        name: string;
+        slug: string;
+      },
+    ];
   };
   id: string;
   collection: string;
@@ -18,28 +28,108 @@ const Date_Conversion = (date: string) => {
   });
 };
 
-const { posts, panels } = Astro.props;
+const { posts, panels, url } = Astro.props;
 ---
 
 <BaseLayout panels={panels}>
-  <ul>
-    {
-      posts.map((post: Post) => (
-        <li>
-          <a
-            href={
-              "/" +
-              post?.collection +
-              "/" +
-              post?.data?.category?.slug +
-              "/" +
-              post?.id
-            }
-          >
-            {post?.data?.title}
-          </a>
-        </li>
-      ))
-    }
-  </ul>
+  <section class="article-list">
+    <h1>あああ</h1>
+    <ul class="posts-list flex column gap-8 py-10">
+      {
+        posts.map((post: Post) => (
+          <li class="post-card p-8">
+            <a
+              href={
+                "/" +
+                post?.collection +
+                "/" +
+                post?.data?.category?.slug +
+                "/" +
+                post?.id
+              }
+            >
+              <h2>{post?.data?.title}</h2>
+              <ul class="post-info flex wrap gap-4 pt-8">
+                <li>
+                  <p class="icon-text">
+                    <Icon name="mdi:clock-time-four-outline" />
+                    <time> {Date_Conversion(post?.data?.pubDate)}</time>
+                  </p>
+                </li>
+
+                {post?.data?.updDate && (
+                  <li>
+                    <p class="icon-text">
+                      <Icon name="mdi:update" />
+                      <time> {Date_Conversion(post?.data?.updDate)}</time>
+                    </p>
+                  </li>
+                )}
+
+                <li>
+                  <p class="icon-text">
+                    <Icon name="mdi:folder-outline" />
+                    {post?.data.category.name}
+                  </p>
+                </li>
+
+                {post?.data?.tags.map(
+                  ({ name, slug }: { name: string; slug: string }) => {
+                    return (
+                      <li>
+                        <p class="icon-text">
+                          <Icon name="mdi:hashtag" />
+                          {name}
+                        </p>
+                      </li>
+                    );
+                  },
+                )}
+              </ul>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <div class="flex-center pagination gap-4">
+      {url.first ? <a href={url.first}>最初</a> : null}
+      {url.prev ? <a href={url.prev}>前へ</a> : null}
+      {url.next ? <a href={url.next}>次へ</a> : null}
+      {url.last ? <a href={url.last}>最後</a> : null}
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .post-card {
+    background-color: var(--color-background);
+    border: solid 3px var(--color-background);
+  }
+
+  .post-card:hover {
+    border: solid 3px var(--color-primary);
+    background-color: var(--color-gray-50);
+  }
+
+  .post-card h2 {
+    color: var(--color-primary);
+  }
+
+  .post-info li > p {
+    padding: var(--spacing-2) var(--spacing-3);
+    border-radius: var(--border-radius-3);
+    border: solid var(--color-gray-200) 2px;
+    line-height: 1.5;
+  }
+
+  .article-list {
+    max-width: 1024px;
+    margin: var(--spacing-10) auto;
+  }
+
+  .pagination a {
+    padding: var(--spacing-4) var(--spacing-8);
+    background-color: var(--color-background);
+    border-radius: var(--border-radius-3);
+  }
+</style>

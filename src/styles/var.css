@@ -20,12 +20,12 @@
 @media (prefers-color-scheme: light) {
   :root {
     /* プライマリーカラー */
-    --color-primary: #66b2ff;
-    --color-primary-hover: #3399ff;
+    --color-primary: #005bac;
+    --color-primary-hover: #004b8c;
 
     /* セカンダリーカラー */
-    --color-secondary: #4dd0e1;
-    --color-secondary-hover: #26c6da;
+    --color-secondary: #00a0e9;
+    --color-secondary-hover: #0080c9;
 
     /* アクセントカラー */
     --color-accent: #ff6666;
@@ -68,12 +68,12 @@
 @media (prefers-color-scheme: dark) {
   :root {
     /* プライマリーカラー */
-    --color-primary: #005bac;
-    --color-primary-hover: #004b8c;
+    --color-primary: #66b2ff;
+    --color-primary-hover: #3399ff;
 
     /* セカンダリーカラー */
-    --color-secondary: #00a0e9;
-    --color-secondary-hover: #0080c9;
+    --color-secondary: #4dd0e1;
+    --color-secondary-hover: #26c6da;
 
     /* アクセントカラー */
     --color-accent: #e60033;
