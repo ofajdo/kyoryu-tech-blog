@@ -26,3 +26,8 @@ a {
   cursor: pointer;
   text-decoration: none;
 }
+
+hr {
+  margin: var(--spacing-12) 0;
+  border-top: 3px solid var(--color-gray-150);
+}

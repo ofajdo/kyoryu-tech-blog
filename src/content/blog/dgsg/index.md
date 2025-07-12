@@ -9,7 +9,7 @@ image:
 category:
   name: Javascript
   slug: javascript
-tag: [{ name: Astro, slug: astro }, { name: Javascript, slug: javascript }]
+tags: [{ name: Astro, slug: astro }, { name: Javascript, slug: javascript }]
 ---
 
 生成AI技術の進化によりITの進化は今までとは比較にならないペースで加速しています。ITを使いこなすことが出来るか出来ないかが中小企業の将来を左右します。ITを「作る人」でも「売る人」でもなく「使う人」に寄り添ったDXを有限会社トライワは実現します。

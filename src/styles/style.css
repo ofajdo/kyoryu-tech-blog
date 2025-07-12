@@ -880,6 +880,16 @@
   display: none !important;
 }
 
+.icon-text {
+  display: inline-flex;
+  align-items: center;
+}
+.icon-text svg {
+  width: 1.25em;
+  height: 1.25em;
+  margin: 0 var(--spacing-1);
+}
+
 @media (max-width: 768px) {
   .hide-mobile {
     display: none !important;

@@ -3,5 +3,3 @@
 
 export const SITE_TITLE = "Astro Blog";
 export const SITE_DESCRIPTION = "Welcome to my website!";
-export const BLOG_CATEGORY = [{ name: "Astro", slug: "astro" }];
-export const BLOG_TAG = [{ name: "Astro", slug: "astro" }];

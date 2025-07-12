@@ -19,7 +19,7 @@ const blog = defineCollection({
       name: z.string(),
       slug: z.string(),
     }),
-    tag: z
+    tags: z
       .array(
         z.object({
           name: z.string(),

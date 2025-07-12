@@ -65,35 +65,57 @@ const { panels } = Astro.props;
     background-color: var(--color-gray-200);
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 499px) {
     .l-toolbar {
       width: 48px;
     }
     button {
-      padding: var(--spacing-2);
+      padding: var(--spacing-3);
     }
   }
 </style>
 <script>
-  const buttons = document.querySelectorAll("button.panel-button");
+  const load = () => {
+    const buttons = document.querySelectorAll("button.panel-button");
 
-  buttons.forEach((button) => {
-    button.addEventListener("click", () => {
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const active_button = document.querySelector("button.is-panel-active");
+
+        const active_button_name = (active_button as HTMLElement | null)
+          ?.dataset?.name;
+        const button_name = (button as HTMLElement).dataset?.name;
+
+        if (active_button_name === button_name && active_button_name) {
+          document
+            .getElementById(active_button_name)
+            ?.classList.toggle("is-panel-active");
+
+          button.classList.toggle("is-panel-active");
+        }
+
+        button.classList.toggle("is-panel-active");
+        active_button?.classList.toggle("is-panel-active");
+
+        if (active_button_name) {
+          document
+            .getElementById(active_button_name)
+            ?.classList.toggle("is-panel-active");
+        }
+        if (button_name) {
+          document
+            .getElementById(button_name)
+            ?.classList.toggle("is-panel-active");
+        }
+      });
+    });
+
+    if (window.matchMedia && window.matchMedia("(max-width: 768px)").matches) {
       const active_button = document.querySelector("button.is-panel-active");
 
       const active_button_name = (active_button as HTMLElement | null)?.dataset
         ?.name;
-      const button_name = (button as HTMLElement).dataset?.name;
 
-      if (active_button_name === button_name && active_button_name) {
-        document
-          .getElementById(active_button_name)
-          ?.classList.toggle("is-panel-active");
-
-        button.classList.toggle("is-panel-active");
-      }
-
-      button.classList.toggle("is-panel-active");
       active_button?.classList.toggle("is-panel-active");
 
       if (active_button_name) {
@@ -101,26 +123,9 @@ const { panels } = Astro.props;
           .getElementById(active_button_name)
           ?.classList.toggle("is-panel-active");
       }
-      if (button_name) {
-        document
-          .getElementById(button_name)
-          ?.classList.toggle("is-panel-active");
-      }
-    });
-  });
-
-  if (window.matchMedia && window.matchMedia("(max-width: 768px)").matches) {
-    const active_button = document.querySelector("button.is-panel-active");
-
-    const active_button_name = (active_button as HTMLElement | null)?.dataset
-      ?.name;
-
-    active_button?.classList.toggle("is-panel-active");
-
-    if (active_button_name) {
-      document
-        .getElementById(active_button_name)
-        ?.classList.toggle("is-panel-active");
     }
-  }
+  };
+
+  document.addEventListener("astro:after-swap", load);
+  document.addEventListener("DOMContentLoaded", load);
 </script>

@@ -1,8 +1,8 @@
 .article-body p {
   font-size: 1rem;
   line-height: 2;
-  padding: 0 var(--spacing-2);
-  margin-bottom: var(--spacing-4);
+  padding: var(--spacing-1);
+  margin-bottom: var(--spacing-3);
   color: var(--color-gray-850);
 }
 
@@ -49,6 +49,29 @@
 
 .article-body h6 {
   font-size: 1.125rem;
+}
+
+.article-body ul,
+.article-body ol {
+  list-style-position: inside;
+  padding: var(--spacing-1) var(--spacing-3);
+}
+
+.article-body ul li {
+  list-style: square;
+}
+
+.article-body ol li {
+  list-style: decimal;
+}
+
+.article-body ol li::marker {
+  font-weight: bold;
+}
+
+.article-body li {
+  margin-left: var(--spacing-4);
+  padding: var(--spacing-1);
 }
 
 @media (max-width: 768px) {

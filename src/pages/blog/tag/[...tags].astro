@@ -1,29 +1,26 @@
 ---
 import { getCollection } from "astro:content";
-import ArticleListLayout from "./../../layouts/ArticleListLayout.astro";
-import Posts from "../../components/header/panels/posts.astro";
+import ArticleListLayout from "./../../../layouts/ArticleListLayout.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
-  console.log(
-    posts.map((post: any) => {
-      return post.data.category;
-    }),
-  );
-  const categorys = posts
+  const tags = posts
     .map((post: any) => {
-      return post.data.category;
+      return post.data.tags;
     })
+    .flat()
     .filter(
       (element, index, self) =>
         self.findIndex((e) => e.slug === element.slug) === index,
     );
-  return categorys.map((category: any) => ({
-    params: { category: category.slug },
+  return tags.map((tag: any) => ({
+    params: { tags: tag.slug },
     props: {
-      posts: posts.filter(
-        (post: any) => post.data.category.slug === category.slug,
-      ),
+      posts: posts.filter((post: any) => {
+        return post.data.tags
+          .map(({ slug }: { slug: string }) => slug)
+          .includes(tag.slug);
+      }),
     },
   }));
 }

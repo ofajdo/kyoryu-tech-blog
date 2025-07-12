@@ -12,7 +12,7 @@ const Date_Conversion = (date: string) => {
   });
 };
 
-const { title, pubDate, updDate, image, panels, tag, category, collection } =
+const { title, pubDate, updDate, image, panels, tags, category, collection } =
   Astro.props;
 const { url, alt } = image;
 ---
@@ -46,23 +46,20 @@ const { url, alt } = image;
             >
           </li>
         </ul>
-        <div class="flex-center column gap-2">
-          <h2>タグ</h2>
-          <ul class="flex-center wrap gap-4">
-            {
-              tag.map(({ name, slug }: { name: string; slug: string }) => {
-                return (
-                  <li>
-                    <a class="icon-text">
-                      <Icon name="mdi:hashtag-box-outline" />
-                      {name}
-                    </a>
-                  </li>
-                );
-              })
-            }
-          </ul>
-        </div>
+        <ul class="flex-center wrap gap-4">
+          {
+            tags.map(({ name, slug }: { name: string; slug: string }) => {
+              return (
+                <li>
+                  <a href={"/" + collection + "/tag/" + slug} class="icon-text">
+                    <Icon name="mdi:hashtag" />
+                    {name}
+                  </a>
+                </li>
+              );
+            })
+          }
+        </ul>
       </div>
     </div>
     <div class="py-8 px-4 article-body">
@@ -102,17 +99,6 @@ const { url, alt } = image;
     border: solid var(--color-gray-200) 2px;
     line-height: 1.5;
   }
-
-  .icon-text {
-    display: inline-flex;
-    align-items: center;
-  }
-  .icon-text svg {
-    width: 1.5em;
-    height: 1.5em;
-    margin: 0 var(--spacing-1);
-  }
-
   li a:hover {
     border-color: var(--color-primary-hover);
     color: var(--color-secondary-hover);

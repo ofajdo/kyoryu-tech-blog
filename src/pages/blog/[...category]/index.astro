@@ -1,0 +1,53 @@
+---
+import { getCollection } from "astro:content";
+import ArticleListLayout from "./../../../layouts/ArticleListLayout.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  const categorys = posts
+    .map((post: any) => {
+      return post.data.category;
+    })
+    .filter(
+      (element, index, self) =>
+        self.findIndex((e) => e.slug === element.slug) === index,
+    );
+  return categorys.map((category: any) => ({
+    params: { category: category.slug },
+    props: {
+      posts: posts.filter(
+        (post: any) => post.data.category.slug === category.slug,
+      ),
+    },
+  }));
+}
+
+const { posts } = Astro.props;
+---
+
+<ArticleListLayout
+  posts={posts}
+  panels={[
+    {
+      name: "contents",
+      icon: "mdi:table-of-contents",
+      state: "is-panel-active",
+      label: "目次のパネル",
+      type: "contents",
+    },
+    {
+      name: "pages",
+      icon: "gridicons:pages",
+      state: "",
+      label: "いろいろな記事のパネル",
+      type: "posts",
+    },
+    {
+      name: "setting",
+      icon: "mdi:settings-outline",
+      state: "",
+      label: "サイトの設定",
+      type: "setting",
+    },
+  ]}
+/>
