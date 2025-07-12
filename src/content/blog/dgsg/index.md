@@ -2,22 +2,25 @@
 title: 初めてのAstroブログ初めてのAstroブログ初めてのAstroブログ初めてのAstroブログ
 description: 初めてのAstroブログを作ったよという記事です。
 pubDate: 2025-07-05
+updDate: 2025/07/10
 image:
-  url: "/astro/background.avif"
+  url: /astro/background.avif
   alt: "惑星と星のイラストの中に「astro」という単語があります。"
 category:
-  name: Astro
-  slug: astro
-tag: [{ name: Astro, slug: astro }]
+  name: Javascript
+  slug: javascript
+tag: [{ name: Astro, slug: astro }, { name: Javascript, slug: javascript }]
 ---
 
 生成AI技術の進化によりITの進化は今までとは比較にならないペースで加速しています。ITを使いこなすことが出来るか出来ないかが中小企業の将来を左右します。ITを「作る人」でも「売る人」でもなく「使う人」に寄り添ったDXを有限会社トライワは実現します。
+
+![画像](./background.avif)
 
 ## サービス
 
 ### IT戦略・DX計画の策定支援
 
-#### 伝わっていますか？経営者のキタイと現場のホンネim
+#### 伝わっていますか？経営者のキタイと現場のホンネ
 
 「ITを導入すれば現場の効率は上がるはず」「今まで見えなかったデータが見えてくるはず」という経営者の期待に反して「入力作業の負担が増えただけ」「本当に欲しかった機能が無いシステムを使わされるのはゴメンだ」という現場の本音。こうしてキタイとホンネが乖離した誰も幸せにならない計画が出来上がります。こんなDX計画になっていませんか？両者の本当のニーズを満たす計画策定を支援します。
 
