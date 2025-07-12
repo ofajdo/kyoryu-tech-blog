@@ -2,34 +2,52 @@
 import { getCollection } from "astro:content";
 import ArticleListLayout from "./../../../layouts/ArticleListLayout.astro";
 
-export async function getStaticPaths() {
+export async function getStaticPaths({ paginate }: { paginate: Function }) {
   const posts = await getCollection("blog");
-  const tags = posts
+  const categorys = posts
     .map((post: any) => {
-      return post.data.tags;
+      return post.data.category;
     })
-    .flat()
     .filter(
       (element, index, self) =>
         self.findIndex((e) => e.slug === element.slug) === index,
     );
-  return tags.map((tag: any) => ({
-    params: { tags: tag.slug },
-    props: {
-      posts: posts.filter((post: any) => {
-        return post.data.tags
-          .map(({ slug }: { slug: string }) => slug)
-          .includes(tag.slug);
-      }),
-    },
-  }));
+  return categorys.flatMap((category: any) => {
+    const filtered_posts = posts.filter(
+      (post: any) => post.data.category.slug === category.slug,
+    );
+    return paginate(filtered_posts, {
+      params: {
+        category: category.slug,
+      },
+      pageSize: 10,
+    });
+  });
 }
 
-const { posts } = Astro.props;
+interface Page<T = any> {
+  data: T[];
+  start: number;
+  end: number;
+  total: number;
+  currentPage: number;
+  size: number;
+  lastPage: number;
+  url: {
+    current: string;
+    prev: string | undefined;
+    next: string | undefined;
+    first: string | undefined;
+    last: string | undefined;
+  };
+}
+const { page }: { page?: Page } = Astro.props;
+const posts = page?.data;
 ---
 
 <ArticleListLayout
   posts={posts}
+  url={page?.url}
   panels={[
     {
       name: "contents",

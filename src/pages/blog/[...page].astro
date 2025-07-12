@@ -1,0 +1,58 @@
+---
+import { getCollection } from "astro:content";
+import ArticleListLayout from "../../layouts/ArticleListLayout.astro";
+
+export async function getStaticPaths({ paginate }: { paginate: Function }) {
+  const posts = (await getCollection("blog")).sort((a: any, b: any) => {
+    return b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
+  });
+
+  return paginate(posts, { pageSize: 10 });
+}
+interface Page<T = any> {
+  data: T[];
+  start: number;
+  end: number;
+  total: number;
+  currentPage: number;
+  size: number;
+  lastPage: number;
+  url: {
+    current: string;
+    prev: string | undefined;
+    next: string | undefined;
+    first: string | undefined;
+    last: string | undefined;
+  };
+}
+const { page }: { page: Page } = Astro.props;
+const posts = page.data;
+---
+
+<ArticleListLayout
+  posts={posts}
+  url={page.url}
+  panels={[
+    {
+      name: "contents",
+      icon: "mdi:table-of-contents",
+      state: "is-panel-active",
+      label: "目次のパネル",
+      type: "contents",
+    },
+    {
+      name: "pages",
+      icon: "gridicons:pages",
+      state: "",
+      label: "いろいろな記事のパネル",
+      type: "posts",
+    },
+    {
+      name: "setting",
+      icon: "mdi:settings-outline",
+      state: "",
+      label: "サイトの設定",
+      type: "setting",
+    },
+  ]}
+/>
