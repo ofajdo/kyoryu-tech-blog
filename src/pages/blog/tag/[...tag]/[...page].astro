@@ -24,6 +24,9 @@ export async function getStaticPaths({ paginate }: { paginate: Function }) {
       params: {
         tag: tag.slug,
       },
+      props: {
+        tag: tag,
+      },
       pageSize: 10,
     });
   });
@@ -45,13 +48,18 @@ interface Page<T = any> {
     last: string | undefined;
   };
 }
-const { page }: { page?: Page } = Astro.props;
+const { page, tag }: { page?: Page; tag?: { name: string; slug: string } } =
+  Astro.props;
 const posts = page?.data;
+
+console.log(page);
 ---
 
 <ArticleListLayout
   posts={posts}
-  url={page?.url}
+  title={tag?.name}
+  page={page}
+  icon={"mdi:hashtag"}
   panels={[
     {
       name: "contents",

@@ -28,16 +28,19 @@ const Date_Conversion = (date: string) => {
   });
 };
 
-const { posts, panels, url } = Astro.props;
+const { posts, panels, page, title, icon } = Astro.props;
 ---
 
 <BaseLayout panels={panels}>
   <section class="article-list">
-    <h1>あああ</h1>
-    <ul class="posts-list flex column gap-8 py-10">
+    <h1 class="icon-text">
+      {icon && <Icon name={icon} />}{title}
+    </h1>
+    <p class="subtitle">{page.currentPage}ページ目</p>
+    <ul class="posts-list flex column gap-8 py-8">
       {
         posts.map((post: Post) => (
-          <li class="post-card p-8">
+          <li class="post-card p-2">
             <a
               href={
                 "/" +
@@ -49,7 +52,7 @@ const { posts, panels, url } = Astro.props;
               }
             >
               <h2>{post?.data?.title}</h2>
-              <ul class="post-info flex wrap gap-4 pt-8">
+              <ul class="post-info flex wrap gap-4 pt-6">
                 <li>
                   <p class="icon-text">
                     <Icon name="mdi:clock-time-four-outline" />
@@ -92,10 +95,10 @@ const { posts, panels, url } = Astro.props;
       }
     </ul>
     <div class="flex-center pagination gap-4">
-      {url.first ? <a href={url.first}>最初</a> : null}
-      {url.prev ? <a href={url.prev}>前へ</a> : null}
-      {url.next ? <a href={url.next}>次へ</a> : null}
-      {url.last ? <a href={url.last}>最後</a> : null}
+      {page?.url?.first ? <a href={page?.url?.first}>最初</a> : null}
+      {page?.url?.prev ? <a href={page?.url?.prev}>前へ</a> : null}
+      {page?.url?.next ? <a href={page?.url?.next}>次へ</a> : null}
+      {page?.url?.last ? <a href={page?.url?.last}>最後</a> : null}
     </div>
   </section>
 </BaseLayout>
@@ -107,7 +110,7 @@ const { posts, panels, url } = Astro.props;
   }
 
   .post-card:hover {
-    border: solid 3px var(--color-primary);
+    border: solid 3px var(--color-secondary-hover);
     background-color: var(--color-gray-50);
   }
 
@@ -116,20 +119,34 @@ const { posts, panels, url } = Astro.props;
   }
 
   .post-info li > p {
-    padding: var(--spacing-2) var(--spacing-3);
-    border-radius: var(--border-radius-3);
-    border: solid var(--color-gray-200) 2px;
     line-height: 1.5;
+    padding: var(--spacing-1);
+    font-weight: bold;
+    color: var(--color-gray-700);
   }
 
   .article-list {
-    max-width: 1024px;
-    margin: var(--spacing-10) auto;
+    max-width: 768px;
+    margin: var(--spacing-4) auto;
   }
 
   .pagination a {
     padding: var(--spacing-4) var(--spacing-8);
     background-color: var(--color-background);
     border-radius: var(--border-radius-3);
+  }
+
+  h1 {
+    font-size: 2.25rem;
+    width: 100%;
+    border-bottom: var(--color-gray-300) solid 2px;
+    padding: var(--spacing-2) var(--spacing-2);
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--color-gray-800);
+    padding: var(--spacing-2) var(--spacing-4);
   }
 </style>

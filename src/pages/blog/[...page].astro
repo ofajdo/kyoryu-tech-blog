@@ -7,7 +7,7 @@ export async function getStaticPaths({ paginate }: { paginate: Function }) {
     return b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
   });
 
-  return paginate(posts, { pageSize: 2 });
+  return paginate(posts, { pageSize: 10 });
 }
 interface Page<T = any> {
   data: T[];
@@ -31,7 +31,8 @@ const posts = page.data;
 
 <ArticleListLayout
   posts={posts}
-  url={page.url}
+  title={"ブログ"}
+  page={page}
   panels={[
     {
       name: "contents",
