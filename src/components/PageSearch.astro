@@ -1,5 +1,10 @@
 ---
+let jsPath = "/pagefind/pagefind-ui.js";
 
+// 開発モードでは `/dist` からパスを指定する
+if (import.meta.env.DEV) {
+  jsPath = "/dist" + jsPath;
+}
 ---
 
 <div class="search"></div>
@@ -15,6 +20,8 @@
   document.addEventListener("DOMContentLoaded", load);
   document.addEventListener("astro:after-swap", load);
 </script>
+
+<script is:inline src={jsPath}></script>
 
 <style is:global>
   .pagefind-ui__search-input {
@@ -37,5 +44,16 @@
   .pagefind-ui__form {
     display: flex;
     flex-wrap: wrap;
+  }
+  .pagefind-ui__result-thumb {
+    display: none;
+  }
+  .pagefind-ui__message {
+    padding: var(--spacing-2);
+  }
+  .pagefind-ui__result-inner {
+    padding: var(--spacing-4) var(--spacing-8);
+    background-color: var(--color-background);
+    border-radius: var(--border-radius-3);
   }
 </style>
