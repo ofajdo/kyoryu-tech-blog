@@ -21,7 +21,7 @@ const { url, alt } = image;
     <div class="article-head">
       <img src={url} alt={alt} width="1024" height="512" />
       <div class="flex-center column px-2 py-8 gap-8">
-        <h1 class="py-8">{title}</h1>
+        <h1 class="py-4">{title}</h1>
         <ul class="flex-center wrap gap-4">
           <li>
             <p class="icon-text">
@@ -100,5 +100,12 @@ const { url, alt } = image;
   }
   li > a:hover {
     background-color: var(--color-gray-200);
+  }
+
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 1.875rem;
+      text-align: center;
+    }
   }
 </style>
