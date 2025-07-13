@@ -32,7 +32,7 @@ const { posts, panels, page, title, icon } = Astro.props;
 ---
 
 <BaseLayout panels={panels}>
-  <section class="article-list">
+  <section class="article-list" data-pagefind-ignore>
     <h1 class="icon-text">
       {icon && <Icon name={icon} />}{title}
     </h1>
@@ -106,16 +106,14 @@ const { posts, panels, page, title, icon } = Astro.props;
 <style>
   .post-card {
     background-color: var(--color-background);
-    border: solid 3px var(--color-background);
   }
 
   .post-card:hover {
-    border: solid 3px var(--color-secondary-hover);
+    outline: var(--color-secondary-hover) 3px solid;
     background-color: var(--color-gray-50);
   }
 
   .post-card h2 {
-    color: var(--color-primary);
   }
 
   .post-info li > p {

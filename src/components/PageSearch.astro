@@ -1,0 +1,41 @@
+---
+
+---
+
+<div class="search"></div>
+
+<script>
+  import { PagefindUI } from "@pagefind/default-ui";
+
+  const load = () => {
+    new PagefindUI({
+      element: ".search",
+    });
+  };
+  document.addEventListener("DOMContentLoaded", load);
+  document.addEventListener("astro:after-swap", load);
+</script>
+
+<style is:global>
+  .pagefind-ui__search-input {
+    border: none;
+    padding: var(--spacing-2);
+    background-color: var(--color-gray-100);
+    border: var(--color-gray-200) solid 2px;
+    width: calc(100% - 64px);
+    outline: none;
+  }
+  .pagefind-ui__search-input:focus {
+    border-color: var(--color-primary);
+    outline: none;
+  }
+  .pagefind-ui__search-clear {
+    width: 64px;
+    background-color: var(--color-gray-200);
+    text-align: center;
+  }
+  .pagefind-ui__form {
+    display: flex;
+    flex-wrap: wrap;
+  }
+</style>

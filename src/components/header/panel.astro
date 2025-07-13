@@ -3,6 +3,7 @@ const { panels } = Astro.props;
 
 import Contents from "./panels/contents.astro";
 import Posts from "./panels/posts.astro";
+import Search from "./panels/search.astro";
 import Setting from "./panels/setting.astro";
 ---
 
@@ -18,6 +19,8 @@ import Setting from "./panels/setting.astro";
               return <Contents {panel} />;
             case "setting":
               return <Setting {panel} />;
+            case "search":
+              return <Search {panel} />;
             default:
               break;
           }
@@ -34,7 +37,8 @@ import Setting from "./panels/setting.astro";
     flex-grow: 1;
     display: none;
     background-color: var(--color-gray-50);
-    width: 320px;
+    min-width: 360px;
+    width: 20dvw;
     z-index: 100;
     overflow-y: scroll;
   }
@@ -48,6 +52,7 @@ import Setting from "./panels/setting.astro";
     .panel {
       position: fixed;
       left: 56px;
+      min-width: none;
       width: calc(100% - 56px);
     }
 
