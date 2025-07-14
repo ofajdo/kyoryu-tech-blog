@@ -1,4 +1,6 @@
 ---
+import "@pagefind/default-ui/css/ui.css";
+
 let jsPath = "/pagefind/pagefind-ui.js";
 
 // 開発モードでは `/dist` からパスを指定する
@@ -24,79 +26,23 @@ if (import.meta.env.DEV) {
 <script is:inline src={jsPath}></script>
 
 <style is:global>
-  .pagefind-ui__search-input {
-    border: none;
-    padding: var(--spacing-2);
-    background-color: var(--color-gray-100);
-    border: var(--color-gray-200) solid 2px;
-    width: calc(100% - 64px);
-    outline: none;
-  }
-  .pagefind-ui__search-input:focus {
-    border-color: var(--color-primary);
-    outline: none;
-  }
-  .pagefind-ui__search-clear {
-    width: 64px;
-    background-color: var(--color-gray-200);
-    text-align: center;
-  }
-  .pagefind-ui__form {
-    display: flex;
-    flex-wrap: wrap;
-  }
   .pagefind-ui__result-thumb {
     display: none;
   }
-  .pagefind-ui__message {
-    padding: var(--spacing-2);
+  :root {
+    --pagefind-ui-scale: 0.875;
+    --pagefind-ui-primary: var(--color-primary);
+    --pagefind-ui-text: var(--color-text);
+    --pagefind-ui-background: var(--color-background);
+    --pagefind-ui-border: var(--color-gray-200);
+    --pagefind-ui-tag: var(--color-gray-200);
+    --pagefind-ui-border-width: 2px;
+    --pagefind-ui-border-radius: 0;
+    --pagefind-ui-image-border-radius: 0;
+    --pagefind-ui-image-box-ratio: 0 / 0;
+    --pagefind-ui-font: inherit;
   }
-  .pagefind-ui__result {
-    padding: var(--spacing-2);
-    background-color: var(--color-gray-50);
-    border: var(--color-gray-200) 3px solid;
-  }
-  .pagefind-ui__result:hover {
-    border: var(--color-secondary-hover) 3px solid;
-  }
-  .pagefind-ui__results {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-8);
-  }
-  .pagefind-ui__result-link {
-    font-size: 1.25rem;
-    font-weight: bold;
-  }
-  .pagefind-ui__result-link :hover {
-    text-decoration: solid;
-  }
-  .pagefind-ui__result-excerpt {
-    padding-top: var(--spacing-6);
-    width: 100%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    font-size: 0.875rem;
-  }
-
-  .pagefind-ui__results-area,
-  .pagefind-ui__drawer {
-    width: 100%;
-  }
-
-  .pagefind-ui__result-excerpt mark {
+  .pagefind-ui--reset mark {
     background-color: var(--color-accent);
-    color: var(--color-text);
-  }
-
-  .pagefind-ui__button {
-    display: block;
-    border-radius: var(--border-radius-3);
-    margin: var(--spacing-4) auto;
-    padding: var(--spacing-2);
-    background-color: var(--color-gray-100);
-
-    border: var(--color-gray-200) solid 2px;
   }
 </style>

@@ -31,3 +31,7 @@ hr {
   margin: var(--spacing-12) 0;
   border-top: 3px solid var(--color-gray-150);
 }
+
+mark {
+  background-color: var(--color-accent);
+}

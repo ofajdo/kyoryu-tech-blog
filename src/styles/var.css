@@ -28,8 +28,8 @@
     --color-secondary-hover: #0080c9;
 
     /* アクセントカラー */
-    --color-accent: #ff6666;
-    --color-accent-hover: #ff4d4d;
+    --color-accent: #ffb300;
+    --color-accent-hover: #ffd54f;
 
     /* 背景色 */
     --color-background: #ffffff;
@@ -76,8 +76,8 @@
     --color-secondary-hover: #26c6da;
 
     /* アクセントカラー */
-    --color-accent: #e60033;
-    --color-accent-hover: #cc0029;
+    --color-accent: #ffd600;
+    --color-accent-hover: #ffea70;
 
     /* 背景色 */
     --color-background: #121212;

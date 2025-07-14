@@ -40,7 +40,10 @@ const { url, alt } = image;
             )
           }
           <li>
-            <a href={"/" + collection + "/" + category?.slug} class="icon-text"
+            <a
+              href={"/" + collection + "/" + category?.slug}
+              class="icon-text"
+              data-pagefind-filter={"カテゴリー"}
               ><Icon name="mdi:folder-outline" />{category.name}</a
             >
           </li>
@@ -50,7 +53,11 @@ const { url, alt } = image;
             tags.map(({ name, slug }: { name: string; slug: string }) => {
               return (
                 <li>
-                  <a href={"/" + collection + "/tag/" + slug} class="icon-text">
+                  <a
+                    data-pagefind-filter={"タグ"}
+                    href={"/" + collection + "/tag/" + slug}
+                    class="icon-text"
+                  >
                     <Icon name="mdi:hashtag" />
                     {name}
                   </a>
